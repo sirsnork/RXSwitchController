@@ -62,5 +62,27 @@ namespace _FirstWindowsFormsApplication
         {
             saveAsFD.ShowDialog();
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                label5.Show();
+                comboBox3.Show();
+                label7.Show();
+                comboBox5.Show();
+
+                comboBox4.Items.Remove("Test");
+            }
+            else
+            {
+                label5.Hide();
+                comboBox3.Hide();
+                label7.Hide();
+                comboBox5.Hide();
+
+                comboBox4.Items.Add("Test");
+            }
+        }
     }
 }
