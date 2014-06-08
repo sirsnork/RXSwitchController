@@ -1,4 +1,7 @@
-﻿namespace _FirstWindowsFormsApplication
+﻿using System;
+using System.IO.Ports;
+
+namespace _FirstWindowsFormsApplication
 {
     partial class Form1
     {
@@ -65,6 +68,8 @@
             this.openFD = new System.Windows.Forms.OpenFileDialog();
             this.saveAsFD = new System.Windows.Forms.SaveFileDialog();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.SerialPortComboBox = new System.Windows.Forms.ComboBox();
+            this.btnFlash = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -479,11 +484,36 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // SerialPortComboBox
+            // 
+            this.SerialPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SerialPortComboBox.FormattingEnabled = true;
+            string[] ports = SerialPort.GetPortNames();
+            this.SerialPortComboBox.Items.Add("Select COM port...");
+            this.SerialPortComboBox.Items.AddRange(ports);
+            this.SerialPortComboBox.SelectedIndex = 0;
+            this.SerialPortComboBox.Location = new System.Drawing.Point(391, 3);
+            this.SerialPortComboBox.Name = "SerialPortComboBox";
+            this.SerialPortComboBox.Size = new System.Drawing.Size(131, 21);
+            this.SerialPortComboBox.TabIndex = 25;
+            // 
+            // btnFlash
+            // 
+            this.btnFlash.Location = new System.Drawing.Point(310, 3);
+            this.btnFlash.Name = "btnFlash";
+            this.btnFlash.Size = new System.Drawing.Size(75, 21);
+            this.btnFlash.TabIndex = 26;
+            this.btnFlash.Text = "Flash";
+            this.btnFlash.UseVisualStyleBackColor = true;
+            this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(525, 537);
+            this.Controls.Add(this.btnFlash);
+            this.Controls.Add(this.SerialPortComboBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
@@ -558,6 +588,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveAsFD;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox SerialPortComboBox;
+        private System.Windows.Forms.Button btnFlash;
     }
 }
 
