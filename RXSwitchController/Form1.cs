@@ -89,30 +89,47 @@ namespace _FirstWindowsFormsApplication
         }
         private async void btnFlash_Click(object sender, EventArgs e)
         {
+            int i = 1;
+            string line;
+            int address = 0;
+            int[] channel = { 1, 8 };
+            int[] mode = { 0, 0 };
+            int[] threshold_lower = { 0xCC02, 0xCC02 };
+            int[] threshold_upper = { 0x3205, 0x3205 };
+            int[] pattern_lower = { 0x0, 0x0 };
+            int[] pattern_middle = { 0x5555, 0x5555 };
+            int[] pattern_upper = { 0xffff, 0xffff };
 
+            if (File.Exists(@"%temp%\output.hex"))
+            {
+                File.Delete(@"%temp%\output.hex");
+            }
             // Create a stringbuilder and write the new user input to it.
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("New User Input");
-            sb.AppendLine("= = = = = =");
-            sb.AppendLine();
-            sb.AppendLine();
+            for (i = 0; i < 2; i++)
+            {
+                line = @":20" + address.ToString("X4") + @"00" + channel[i].ToString("X2") + mode[i].ToString("X2") + threshold_lower[i].ToString("X4") + threshold_upper[i].ToString("X4") + pattern_lower[i].ToString("X4") + pattern_middle[i].ToString("X4") + pattern_upper[i].ToString("X4") + @"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+                line = add_checksum(line);
+                address += 0x80;
+                sb.AppendLine(line);
+            }
+            sb.AppendLine(@":00000001FF");
 
             // Open a streamwriter to a new text file named "UserInputFile.txt"and write the contents of 
             // the stringbuilder to it. 
-            //using (StreamWriter outfile = new StreamWriter(@"%temp%\UserInputFile.txt", true))
-            //{
-            //    await outfile.WriteAsync(sb.ToString());
-            //}
-
+            using (StreamWriter outfile = new StreamWriter(@"D:\output.hex", true))
+            {
+                await outfile.WriteAsync(sb.ToString());
+            }
+            sb.Clear();
 
             // avrdude -p t85 -c tgyusblinker -P com7 -U flash:w:application.hex
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
             avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
-            //avrdude.StartInfo.FileName = @"avrdude -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U flash:w:%temp%\output.hex"
-            //avrdude.StartInfo.CreateNoWindow = true;
-            avrdude.StartInfo.CreateNoWindow = false;
+            //avrdude.StartInfo.FileName = @"avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:D:\output.hex"
+            avrdude.StartInfo.CreateNoWindow = true;
             avrdude.Start();
 
             while (!avrdude.HasExited)
@@ -127,6 +144,29 @@ namespace _FirstWindowsFormsApplication
                 MessageBox.Show("Success Updating EEPROM");
                 SerialPortComboBox.Focus();
             }
+            avrdude.Dispose();
+            //File.Delete(@"D:\output.hex");
+        }
+        // Do calculation to add a checksum byte to the end of the variable passed in, remove first byte before calculating checksum
+        private string add_checksum(string line)
+        {
+            int j = 0;
+            byte[] lineb = { 0x0 };
+            int checksum = 0x0;
+            lineb = StringToByteArray(line.Substring(1, line.Length - 1));
+            for (j = 0; j < lineb.Length; j++)
+            {
+                checksum += lineb[j];
+            }
+            checksum = 0x100 - (checksum & 0x00FF);
+            return line + checksum.ToString("X2");
+        }
+        private static byte[] StringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
     }
 }
