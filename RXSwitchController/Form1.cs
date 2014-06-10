@@ -87,7 +87,7 @@ namespace _FirstWindowsFormsApplication
                 comboBox4.Items.Add("Test");
             }
         }
-        private async void btnFlash_Click(object sender, EventArgs e)
+        private void btnFlash_Click(object sender, EventArgs e)
         {
             int i = 1;
             string line;
@@ -100,9 +100,9 @@ namespace _FirstWindowsFormsApplication
             int[] pattern_middle = { 0x5555, 0x5555 };
             int[] pattern_upper = { 0xffff, 0xffff };
 
-            if (File.Exists(@"%temp%\output.hex"))
+            if (File.Exists(@"D:\output.hex"))
             {
-                File.Delete(@"%temp%\output.hex");
+                File.Delete(@"D:\output.hex");
             }
             // Create a stringbuilder and write the new user input to it.
             StringBuilder sb = new StringBuilder();
@@ -120,7 +120,7 @@ namespace _FirstWindowsFormsApplication
             // the stringbuilder to it. 
             using (StreamWriter outfile = new StreamWriter(@"D:\output.hex", true))
             {
-                await outfile.WriteAsync(sb.ToString());
+                outfile.Write(sb.ToString());
             }
             sb.Clear();
 
