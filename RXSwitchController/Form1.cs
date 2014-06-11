@@ -15,6 +15,7 @@ namespace _FirstWindowsFormsApplication
 {
     public partial class Form1 : Form
     {
+        string eeprom_file = @"D:\eeprom_output.hex";
         public Form1()
         {
             InitializeComponent();
@@ -100,11 +101,10 @@ namespace _FirstWindowsFormsApplication
             int[] pattern_middle = { 0x5555, 0x5555 };
             int[] pattern_upper = { 0xffff, 0xffff };
 
-            if (File.Exists(@"D:\output.hex"))
+            if (File.Exists(eeprom_file))
             {
-                File.Delete(@"D:\output.hex");
+                File.Delete(eeprom_file);
             }
-            // Create a stringbuilder and write the new user input to it.
             StringBuilder sb = new StringBuilder();
 
             for (i = 0; i < 2; i++)
@@ -116,19 +116,16 @@ namespace _FirstWindowsFormsApplication
             }
             sb.AppendLine(@":00000001FF");
 
-            // Open a streamwriter to a new text file named "UserInputFile.txt"and write the contents of 
-            // the stringbuilder to it. 
-            using (StreamWriter outfile = new StreamWriter(@"D:\output.hex", true))
+            using (StreamWriter outfile = new StreamWriter(eeprom_file, true))
             {
                 outfile.Write(sb.ToString());
             }
             sb.Clear();
 
-            // avrdude -p t85 -c tgyusblinker -P com7 -U flash:w:application.hex
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
             avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
-            //avrdude.StartInfo.FileName = @"avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:D:\output.hex"
+            //avrdude.StartInfo.FileName = @"avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file;
             avrdude.StartInfo.CreateNoWindow = true;
             avrdude.Start();
 
@@ -145,7 +142,7 @@ namespace _FirstWindowsFormsApplication
                 SerialPortComboBox.Focus();
             }
             avrdude.Dispose();
-            //File.Delete(@"D:\output.hex");
+            //File.Delete(eeprom_file);
         }
         // Do calculation to add a checksum byte to the end of the variable passed in, remove first byte before calculating checksum
         private string add_checksum(string line)
@@ -153,7 +150,7 @@ namespace _FirstWindowsFormsApplication
             int j = 0;
             byte[] lineb = { 0x0 };
             int checksum = 0x0;
-            lineb = StringToByteArray(line.Substring(1, line.Length - 1));
+            lineb = StringToByteArray(line.Substring(1, line.Length - 1)); // Strip ":" at start of line before calculating checksum
             for (j = 0; j < lineb.Length; j++)
             {
                 checksum += lineb[j];
