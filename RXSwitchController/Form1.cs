@@ -67,13 +67,20 @@ namespace _FirstWindowsFormsApplication
             int i = 1;
             string line;
             int address = 0;
-            int[] channel = { 1, 8 };
+            int[] channel = { 0, 0 };
             int[] mode = { 0, 0 };
             int[] threshold_lower = { 0xCC02, 0xCC02 };
             int[] threshold_upper = { 0x3205, 0x3205 };
             int[] pattern_lower = { 0x0, 0x0 };
-            int[] pattern_middle = { 0x5555, 0x5555 };
-            int[] pattern_upper = { 0xffff, 0xffff };
+            int[] pattern_middle = { 0x0, 0x0 };
+            int[] pattern_upper = { 0x0, 0x0 };
+
+            channel[0] = this.Output1Selection.SelectedIndex + 1;
+            threshold_lower[0] = Convert.ToInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 6.14) + 716);
+            threshold_upper[0] = Convert.ToInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 6.14) + 716);
+            pattern_lower[0] = Convert.ToInt32(this.textBox1.Text, 2);
+            pattern_middle[0] = Convert.ToInt32(this.textBox2.Text, 2);
+            pattern_upper[0] = Convert.ToInt32(this.textBox3.Text, 2);
 
             if (File.Exists(eeprom_file))
             {
@@ -144,7 +151,6 @@ namespace _FirstWindowsFormsApplication
         {
             // Allow backspace, 0 and 1
             e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
-                //!("\b01".Contains(e.KeyChar));
         }
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -157,6 +163,39 @@ namespace _FirstWindowsFormsApplication
             // Allow backspace, 0 and 1
             e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
             //!("\b01".Contains(e.KeyChar));
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Output1Mode.SelectedIndex == 0) // Custom
+            {
+                this.textBox1.Enabled = true;
+                this.textBox2.Enabled = true;
+                this.textBox3.Enabled = true;
+            }
+            else if (Output1Mode.SelectedIndex == 1) //Off/Flashing/On
+            {
+                this.Output1LowerThreshold.Value = 40;
+                this.Output1LowerThreshold.Enabled = false;
+                this.Output1UpperThreshold.Value = 60;
+                this.Output1UpperThreshold.Enabled = false;
+                this.textBox1.Text = "0000000000000000";
+                this.textBox1.Enabled = false;
+                this.textBox2.Text = "0101010101010101";
+                this.textBox2.Enabled = false;
+                this.textBox3.Text = "1111111111111111";
+                this.textBox3.Enabled = false;
+            }
+            else if (Output1Mode.SelectedIndex == 2) //Brightness
+            {
+                this.textBox1.Enabled = false;
+                this.textBox2.Enabled = false;
+                this.textBox3.Enabled = false;
+            }
+            else if (Output1Mode.SelectedIndex == 3) //Alternate flashing
+            {
+
+            }
         }
     }
 }

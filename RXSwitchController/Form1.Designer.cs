@@ -42,12 +42,12 @@ namespace _FirstWindowsFormsApplication
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.Output1Selection = new System.Windows.Forms.ComboBox();
+            this.Output2Selection = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.Output1Mode = new System.Windows.Forms.ComboBox();
+            this.Output2Mode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.openFD = new System.Windows.Forms.OpenFileDialog();
@@ -56,14 +56,14 @@ namespace _FirstWindowsFormsApplication
             this.btnFlash = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.Output1LowerThreshold = new System.Windows.Forms.NumericUpDown();
+            this.Output1UpperThreshold = new System.Windows.Forms.NumericUpDown();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Output1LowerThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Output1UpperThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -153,11 +153,11 @@ namespace _FirstWindowsFormsApplication
             this.label3.Size = new System.Drawing.Size(100, 23);
             this.label3.TabIndex = 27;
             // 
-            // comboBox2
+            // Output1Selection
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.Output1Selection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Output1Selection.FormattingEnabled = true;
+            this.Output1Selection.Items.AddRange(new object[] {
             "Channel 1",
             "Channel 2",
             "Channel 3",
@@ -174,16 +174,16 @@ namespace _FirstWindowsFormsApplication
             "Channel 14",
             "Channel 15",
             "Channel 16"});
-            this.comboBox2.Location = new System.Drawing.Point(102, 45);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 7;
+            this.Output1Selection.Location = new System.Drawing.Point(102, 45);
+            this.Output1Selection.Name = "Output1Selection";
+            this.Output1Selection.Size = new System.Drawing.Size(121, 21);
+            this.Output1Selection.TabIndex = 7;
             // 
-            // comboBox3
+            // Output2Selection
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.Output2Selection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Output2Selection.FormattingEnabled = true;
+            this.Output2Selection.Items.AddRange(new object[] {
             "Channel 1",
             "Channel 2",
             "Channel 3",
@@ -200,11 +200,10 @@ namespace _FirstWindowsFormsApplication
             "Channel 14",
             "Channel 15",
             "Channel 16"});
-            this.comboBox3.Location = new System.Drawing.Point(102, 181);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 8;
-            this.comboBox3.Visible = false;
+            this.Output2Selection.Location = new System.Drawing.Point(102, 181);
+            this.Output2Selection.Name = "Output2Selection";
+            this.Output2Selection.Size = new System.Drawing.Size(121, 21);
+            this.Output2Selection.TabIndex = 8;
             // 
             // label4
             // 
@@ -223,34 +222,35 @@ namespace _FirstWindowsFormsApplication
             this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Output 2";
-            this.label5.Visible = false;
             // 
-            // comboBox4
+            // Output1Mode
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.Output1Mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Output1Mode.FormattingEnabled = true;
+            this.Output1Mode.Items.AddRange(new object[] {
+            "Custom...",
             "On/Flashing/Off",
-            "Brightness/PWM",
-            "Custom..."});
-            this.comboBox4.Location = new System.Drawing.Point(302, 45);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(200, 21);
-            this.comboBox4.TabIndex = 11;
+            "Brightness/PWM"});
+            this.Output1Mode.Location = new System.Drawing.Point(302, 45);
+            this.Output1Mode.Name = "Output1Mode";
+            this.Output1Mode.Size = new System.Drawing.Size(200, 21);
+            this.Output1Mode.TabIndex = 11;
+            this.Output1Mode.SelectedIndex = 0;
+            this.Output1Mode.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
-            // comboBox5
+            // Output2Mode
             // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            this.Output2Mode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Output2Mode.FormattingEnabled = true;
+            this.Output2Mode.Items.AddRange(new object[] {
+            "Custom...",
             "On/Flashing/Off",
-            "Brightness/PWM",
-            "Custom..."});
-            this.comboBox5.Location = new System.Drawing.Point(302, 184);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(200, 21);
-            this.comboBox5.TabIndex = 12;
-            this.comboBox5.Visible = false;
+            "Brightness/PWM"});
+            this.Output2Mode.Location = new System.Drawing.Point(302, 184);
+            this.Output2Mode.Name = "Output2Mode";
+            this.Output2Mode.Size = new System.Drawing.Size(200, 21);
+            this.Output2Mode.TabIndex = 12;
+            this.Output2Mode.SelectedIndex = 0;
             // 
             // label6
             // 
@@ -269,7 +269,6 @@ namespace _FirstWindowsFormsApplication
             this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 14;
             this.label7.Text = "Mode";
-            this.label7.Visible = false;
             // 
             // openFD
             // 
@@ -293,6 +292,7 @@ namespace _FirstWindowsFormsApplication
             this.SerialPortComboBox.Location = new System.Drawing.Point(331, 244);
             this.SerialPortComboBox.Name = "SerialPortComboBox";
             this.SerialPortComboBox.Size = new System.Drawing.Size(131, 21);
+            this.SerialPortComboBox.SelectedIndex = 0;
             this.SerialPortComboBox.TabIndex = 25;
             // 
             // btnFlash
@@ -323,46 +323,46 @@ namespace _FirstWindowsFormsApplication
             this.label8.TabIndex = 34;
             this.label8.Text = "Upper Threshold (%)";
             // 
-            // numericUpDown1
+            // Output1LowerThreshold
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(165, 85);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 35;
+            this.Output1LowerThreshold.Location = new System.Drawing.Point(165, 85);
+            this.Output1LowerThreshold.Name = "Output1LowerThreshold";
+            this.Output1LowerThreshold.Size = new System.Drawing.Size(47, 20);
+            this.Output1LowerThreshold.TabIndex = 35;
             // 
-            // numericUpDown2
+            // Output1UpperThreshold
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(417, 85);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown2.TabIndex = 36;
+            this.Output1UpperThreshold.Location = new System.Drawing.Point(417, 85);
+            this.Output1UpperThreshold.Name = "Output1UpperThreshold";
+            this.Output1UpperThreshold.Size = new System.Drawing.Size(47, 20);
+            this.Output1UpperThreshold.TabIndex = 36;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(81, 132);
+            this.textBox1.MaxLength = 16;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 38;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.MaxLength = 16;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(210, 132);
+            this.textBox2.MaxLength = 16;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 39;
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
-            this.textBox2.MaxLength = 16;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(343, 132);
+            this.textBox3.MaxLength = 16;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 40;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
-            this.textBox3.MaxLength = 16;
             // 
             // Form1
             // 
@@ -372,20 +372,20 @@ namespace _FirstWindowsFormsApplication
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.Output1UpperThreshold);
+            this.Controls.Add(this.Output1LowerThreshold);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFlash);
             this.Controls.Add(this.SerialPortComboBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox5);
-            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.Output2Mode);
+            this.Controls.Add(this.Output1Mode);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.Output2Selection);
+            this.Controls.Add(this.Output1Selection);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -394,8 +394,8 @@ namespace _FirstWindowsFormsApplication
             this.Text = "Lighting Controller Programmer";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Output1LowerThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Output1UpperThreshold)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,12 +411,12 @@ namespace _FirstWindowsFormsApplication
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox Output1Selection;
+        private System.Windows.Forms.ComboBox Output2Selection;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox Output1Mode;
+        private System.Windows.Forms.ComboBox Output2Mode;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.OpenFileDialog openFD;
@@ -428,8 +428,8 @@ namespace _FirstWindowsFormsApplication
         private System.Windows.Forms.Button btnFlash;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown Output1LowerThreshold;
+        private System.Windows.Forms.NumericUpDown Output1UpperThreshold;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
