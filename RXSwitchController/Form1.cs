@@ -31,11 +31,6 @@ namespace _FirstWindowsFormsApplication
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
@@ -67,27 +62,6 @@ namespace _FirstWindowsFormsApplication
             saveAsFD.ShowDialog();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                label5.Show();
-                comboBox3.Show();
-                label7.Show();
-                comboBox5.Show();
-
-                comboBox4.Items.Remove("Test");
-            }
-            else
-            {
-                label5.Hide();
-                comboBox3.Hide();
-                label7.Hide();
-                comboBox5.Hide();
-
-                comboBox4.Items.Add("Test");
-            }
-        }
         private void btnFlash_Click(object sender, EventArgs e)
         {
             int i = 1;
@@ -164,6 +138,25 @@ namespace _FirstWindowsFormsApplication
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow backspace, 0 and 1
+            e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
+                //!("\b01".Contains(e.KeyChar));
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow backspace, 0 and 1
+            e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
+            //!("\b01".Contains(e.KeyChar));
+        }
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow backspace, 0 and 1
+            e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
+            //!("\b01".Contains(e.KeyChar));
         }
     }
 }
