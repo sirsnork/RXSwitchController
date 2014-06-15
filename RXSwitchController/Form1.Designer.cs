@@ -151,7 +151,7 @@ namespace _FirstWindowsFormsApplication
             this.Output1Mode.Name = "Output1Mode";
             this.Output1Mode.Size = new System.Drawing.Size(200, 21);
             this.Output1Mode.TabIndex = 11;
-            this.Output1Mode.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            this.Output1Mode.SelectedIndexChanged += new System.EventHandler(this.Output1Mode_SelectedIndexChanged);
             // 
             // Output2Mode
             // 
@@ -187,7 +187,6 @@ namespace _FirstWindowsFormsApplication
             // SerialPortComboBox
             // 
             this.SerialPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            
             this.SerialPortComboBox.FormattingEnabled = true;
             this.SerialPortComboBox.Location = new System.Drawing.Point(297, 407);
             this.SerialPortComboBox.Name = "SerialPortComboBox";
@@ -204,7 +203,6 @@ namespace _FirstWindowsFormsApplication
             this.btnFlash.TabIndex = 26;
             this.btnFlash.Text = "Flash";
             this.btnFlash.UseVisualStyleBackColor = true;
-            this.btnFlash.Enabled = false;
             this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
             // 
             // label1
@@ -243,7 +241,7 @@ namespace _FirstWindowsFormsApplication
             // patternLower1
             // 
             this.patternLower1.Location = new System.Drawing.Point(81, 150);
-            this.patternLower1.MaxLength = 16;
+            this.patternLower1.MaxLength = 32;
             this.patternLower1.Name = "patternLower1";
             this.patternLower1.Size = new System.Drawing.Size(100, 20);
             this.patternLower1.TabIndex = 38;
@@ -252,7 +250,7 @@ namespace _FirstWindowsFormsApplication
             // patternMiddle1
             // 
             this.patternMiddle1.Location = new System.Drawing.Point(210, 150);
-            this.patternMiddle1.MaxLength = 16;
+            this.patternMiddle1.MaxLength = 32;
             this.patternMiddle1.Name = "patternMiddle1";
             this.patternMiddle1.Size = new System.Drawing.Size(100, 20);
             this.patternMiddle1.TabIndex = 39;
@@ -261,7 +259,7 @@ namespace _FirstWindowsFormsApplication
             // patternUpper1
             // 
             this.patternUpper1.Location = new System.Drawing.Point(343, 150);
-            this.patternUpper1.MaxLength = 16;
+            this.patternUpper1.MaxLength = 32;
             this.patternUpper1.Name = "patternUpper1";
             this.patternUpper1.Size = new System.Drawing.Size(100, 20);
             this.patternUpper1.TabIndex = 40;
@@ -324,26 +322,29 @@ namespace _FirstWindowsFormsApplication
             // patternUpper2
             // 
             this.patternUpper2.Location = new System.Drawing.Point(343, 328);
-            this.patternUpper2.MaxLength = 16;
+            this.patternUpper2.MaxLength = 32;
             this.patternUpper2.Name = "patternUpper2";
             this.patternUpper2.Size = new System.Drawing.Size(100, 20);
             this.patternUpper2.TabIndex = 50;
+            this.patternUpper2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternMiddle2
             // 
             this.patternMiddle2.Location = new System.Drawing.Point(210, 328);
-            this.patternMiddle2.MaxLength = 16;
+            this.patternMiddle2.MaxLength = 32;
             this.patternMiddle2.Name = "patternMiddle2";
             this.patternMiddle2.Size = new System.Drawing.Size(100, 20);
             this.patternMiddle2.TabIndex = 49;
+            this.patternMiddle2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternLower2
             // 
             this.patternLower2.Location = new System.Drawing.Point(81, 328);
-            this.patternLower2.MaxLength = 16;
+            this.patternLower2.MaxLength = 32;
             this.patternLower2.Name = "patternLower2";
             this.patternLower2.Size = new System.Drawing.Size(100, 20);
             this.patternLower2.TabIndex = 48;
+            this.patternLower2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // Output2UpperThreshold
             // 

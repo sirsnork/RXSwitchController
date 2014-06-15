@@ -24,7 +24,13 @@ namespace _FirstWindowsFormsApplication
             Output2Selection.SelectedIndex = 0;
             Output1Mode.SelectedIndex = 0;
             Output2Mode.SelectedIndex = 0;
-            
+            patternLower1.BackColor = Color.Red;
+            patternLower2.BackColor = Color.Red;
+            patternMiddle1.BackColor = Color.Red;
+            patternMiddle2.BackColor = Color.Red;
+            patternUpper1.BackColor = Color.Red;
+            patternUpper2.BackColor = Color.Red;
+
             string[] ports = SerialPort.GetPortNames();
             SerialPortComboBox.Items.Add("Select COM port...");
             SerialPortComboBox.Items.AddRange(ports);
@@ -69,11 +75,9 @@ namespace _FirstWindowsFormsApplication
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
             avrdude.StartInfo.ErrorDialog = true;
-            //avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
             avrdude.StartInfo.Arguments = @"-p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file + @":i";
             avrdude.StartInfo.FileName = @"C:\avrdude\avrdude.exe";
             avrdude.Start();
-            
 
             while (!avrdude.HasExited)
                 System.Threading.Thread.Sleep(100);
@@ -129,9 +133,62 @@ namespace _FirstWindowsFormsApplication
         {
             // Allow backspace, 0 and 1
             e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
+            CheckBackgroundColor();
         }
 
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void CheckBackgroundColor()
+        {
+            if (this.patternLower1.Text.Length == 32)
+            {
+                this.patternLower1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower1.BackColor = Color.Red;
+            }
+            if (this.patternLower2.Text.Length == 32)
+            {
+                this.patternLower2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower2.BackColor = Color.Firebrick;
+            }
+            if (this.patternMiddle1.Text.Length == 32)
+            {
+                this.patternMiddle1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle1.BackColor = Color.Red;
+            }
+            if (this.patternMiddle2.Text.Length == 32)
+            {
+                this.patternMiddle2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle2.BackColor = Color.Red;
+            }
+            if (this.patternUpper1.Text.Length == 32)
+            {
+                this.patternUpper1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper1.BackColor = Color.Red;
+            }
+            if (this.patternUpper2.Text.Length == 32)
+            {
+                this.patternUpper2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper2.BackColor = Color.Red;
+            }
+        }
+
+        private void Output1Mode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Output1Mode.SelectedIndex == 0) // Custom
             {
@@ -190,7 +247,7 @@ namespace _FirstWindowsFormsApplication
                 this.patternLower2.Enabled = false;
                 this.patternMiddle2.Text = "00000000000000000000000000000000";
                 this.patternMiddle2.Enabled = false;
-                this.patternUpper2.Text = "0010000000000000000000000000000";
+                this.patternUpper2.Text = "00100000000000000000000000000000";
                 this.patternUpper2.Enabled = false;
             }
             else if (Output1Mode.SelectedIndex == 4) // Alternate flashing (Constant)
@@ -223,6 +280,7 @@ namespace _FirstWindowsFormsApplication
                 this.patternUpper2.Text = "00000000000000001111111111111111";
                 this.patternUpper2.Enabled = false;
             }
+            CheckBackgroundColor();
         }
 
         private void resetOutput2()
@@ -242,6 +300,7 @@ namespace _FirstWindowsFormsApplication
             "On/Flashing/Off",
             "Brightness/PWM"});
             Output2Mode.SelectedIndex = 0;
+            CheckBackgroundColor();
         }
 
         private void Output1LowerThreshold_ValueChanged(object sender, EventArgs e)
