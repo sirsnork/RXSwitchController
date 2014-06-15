@@ -67,20 +67,14 @@ namespace _FirstWindowsFormsApplication
             int i = 1;
             string line;
             int address = 0;
-            int[] channel = { 0, 0 };
-            int[] mode = { 0, 0 };
-            int[] threshold_lower = { 0xCC02, 0xCC02 };
-            int[] threshold_upper = { 0x3205, 0x3205 };
-            int[] pattern_lower = { 0x0, 0x0 };
-            int[] pattern_middle = { 0x0, 0x0 };
-            int[] pattern_upper = { 0x0, 0x0 };
+            int[] channel = { this.Output1Selection.SelectedIndex + 1, this.Output2Selection.SelectedIndex + 1 };
+            int[] mode = { Output1Mode.SelectedIndex == 1 ? 1 : 0, Output2Mode.SelectedIndex == 1 ? 1 : 0 };
+            int[] threshold_lower = { Convert.ToInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 13.64) + 342), Convert.ToInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 13.64) + 342) };
+            int[] threshold_upper = { Convert.ToInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 13.64) + 342), Convert.ToInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 13.64) + 342) };
+            int[] pattern_lower = { Convert.ToInt32(this.patternLower1.Text, 2), Convert.ToInt32(this.patternLower2.Text, 2) };
+            int[] pattern_middle = { Convert.ToInt32(this.patternMiddle1.Text, 2), Convert.ToInt32(this.patternMiddle2.Text, 2) };
+            int[] pattern_upper = { Convert.ToInt32(this.patternUpper1.Text, 2), Convert.ToInt32(this.patternUpper2.Text, 2) };
 
-            channel[0] = this.Output1Selection.SelectedIndex + 1;
-            threshold_lower[0] = Convert.ToInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 6.14) + 716);
-            threshold_upper[0] = Convert.ToInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 6.14) + 716);
-            pattern_lower[0] = Convert.ToInt32(this.textBox1.Text, 2);
-            pattern_middle[0] = Convert.ToInt32(this.textBox2.Text, 2);
-            pattern_upper[0] = Convert.ToInt32(this.textBox3.Text, 2);
 
             if (File.Exists(eeprom_file))
             {
@@ -147,54 +141,144 @@ namespace _FirstWindowsFormsApplication
                              .ToArray();
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxBinary_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Allow backspace, 0 and 1
             e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
-        }
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Allow backspace, 0 and 1
-            e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
-            //!("\b01".Contains(e.KeyChar));
-        }
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Allow backspace, 0 and 1
-            e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
-            //!("\b01".Contains(e.KeyChar));
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Output1Mode.SelectedIndex == 0) // Custom
             {
-                this.textBox1.Enabled = true;
-                this.textBox2.Enabled = true;
-                this.textBox3.Enabled = true;
+                resetOutput2();
+                this.patternLower1.Enabled = true;
+                this.patternMiddle1.Enabled = true;
+                this.patternUpper1.Enabled = true;
+                this.Output1LowerThreshold.Enabled = true;
+                this.Output1UpperThreshold.Enabled = true;
             }
             else if (Output1Mode.SelectedIndex == 1) //Off/Flashing/On
             {
+                resetOutput2();
                 this.Output1LowerThreshold.Value = 40;
                 this.Output1LowerThreshold.Enabled = false;
                 this.Output1UpperThreshold.Value = 60;
                 this.Output1UpperThreshold.Enabled = false;
-                this.textBox1.Text = "0000000000000000";
-                this.textBox1.Enabled = false;
-                this.textBox2.Text = "0101010101010101";
-                this.textBox2.Enabled = false;
-                this.textBox3.Text = "1111111111111111";
-                this.textBox3.Enabled = false;
+                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Enabled = false;
+                this.patternMiddle1.Text = "0101010101010101";
+                this.patternMiddle1.Enabled = false;
+                this.patternUpper1.Text = "1111111111111111";
+                this.patternUpper1.Enabled = false;
             }
             else if (Output1Mode.SelectedIndex == 2) //Brightness
             {
-                this.textBox1.Enabled = false;
-                this.textBox2.Enabled = false;
-                this.textBox3.Enabled = false;
+                resetOutput2();
+                this.patternLower1.Enabled = false;
+                this.patternMiddle1.Enabled = false;
+                this.patternUpper1.Enabled = false;
             }
-            else if (Output1Mode.SelectedIndex == 3) //Alternate flashing
+            else if (Output1Mode.SelectedIndex == 3) //Alternate flashing (Wingtip)
             {
+                this.Output2Mode.Items.AddRange(new string[] {"Alternating Flashing (Wingtip Lights)", "Alternating Flashing (Constant)"});
 
+                this.Output1LowerThreshold.Value = 40;
+                this.Output1LowerThreshold.Enabled = false;
+                this.Output1UpperThreshold.Value = 50;
+                this.Output1UpperThreshold.Enabled = false;
+                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Enabled = false;
+                this.patternMiddle1.Text = "0000000000000000";
+                this.patternMiddle1.Enabled = false;
+                this.patternUpper1.Text = "0000111100000000";
+                this.patternUpper1.Enabled = false;
+
+                this.Output2Mode.SelectedIndex = this.Output1Mode.SelectedIndex;
+                this.Output2Mode.Enabled = false;
+                this.Output2Selection.SelectedIndex = this.Output1Selection.SelectedIndex;
+                this.Output2Selection.Enabled = false;
+                this.Output2LowerThreshold.Value = 40;
+                this.Output2LowerThreshold.Enabled = false;
+                this.Output2UpperThreshold.Value = 50;
+                this.Output2UpperThreshold.Enabled = false;
+                this.patternLower2.Text = "0000000000000000";
+                this.patternLower2.Enabled = false;
+                this.patternMiddle2.Text = "0000000000000000";
+                this.patternMiddle2.Enabled = false;
+                this.patternUpper2.Text = "0000000011110000";
+                this.patternUpper2.Enabled = false;
+            }
+            else if (Output1Mode.SelectedIndex == 4) //Alternate flashing (Constant)
+            {
+                this.Output2Mode.Items.AddRange(new string[] { "Alternating Flashing (Wingtip Lights)", "Alternating Flashing (Constant)" });
+
+                this.Output1LowerThreshold.Value = 40;
+                this.Output1LowerThreshold.Enabled = false;
+                this.Output1UpperThreshold.Value = 50;
+                this.Output1UpperThreshold.Enabled = false;
+                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Enabled = false;
+                this.patternMiddle1.Text = "0000000000000000";
+                this.patternMiddle1.Enabled = false;
+                this.patternUpper1.Text = "1111111100000000";
+                this.patternUpper1.Enabled = false;
+
+                this.Output2Mode.SelectedIndex = this.Output1Mode.SelectedIndex;
+                this.Output2Mode.Enabled = false;
+                this.Output2Selection.SelectedIndex = this.Output1Selection.SelectedIndex;
+                this.Output2Selection.Enabled = false;
+                this.Output2LowerThreshold.Value = 40;
+                this.Output2LowerThreshold.Enabled = false;
+                this.Output2UpperThreshold.Value = 50;
+                this.Output2UpperThreshold.Enabled = false;
+                this.patternLower2.Text = "0000000000000000";
+                this.patternLower2.Enabled = false;
+                this.patternMiddle2.Text = "0000000000000000";
+                this.patternMiddle2.Enabled = false;
+                this.patternUpper2.Text = "0000000011111111";
+                this.patternUpper2.Enabled = false;
+            }
+        }
+
+        private void resetOutput2()
+        {
+            Output2Mode.Enabled = true;
+            Output2Mode.SelectedIndex = 0;
+            Output2Selection.Enabled = true;
+            Output2Selection.SelectedIndex = 0;
+            Output2LowerThreshold.Enabled = true;
+            Output2UpperThreshold.Enabled = true;
+            patternLower2.Enabled = true;
+            patternMiddle2.Enabled = true;
+            patternUpper2.Enabled = true;
+            Output2Mode.Items.Clear();
+            Output2Mode.Items.AddRange(new object[] {
+            "Custom...",
+            "On/Flashing/Off",
+            "Brightness/PWM"});
+            Output2Mode.SelectedIndex = 0;
+        }
+
+        private void Output1LowerThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            Output1UpperThreshold.Minimum = Output1LowerThreshold.Value;
+        }
+
+        private void Output2LowerThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            Output2UpperThreshold.Minimum = Output2LowerThreshold.Value;
+        }
+
+        private void SerialPortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SerialPortComboBox.SelectedIndex > 0)
+            {
+                btnFlash.Enabled = true;
+            }
+            else
+            {
+                btnFlash.Enabled = false;
             }
         }
     }
