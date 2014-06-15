@@ -35,6 +35,66 @@ namespace _FirstWindowsFormsApplication
             SerialPortComboBox.Items.Add("Select COM port...");
             SerialPortComboBox.Items.AddRange(ports);
             SerialPortComboBox.SelectedIndex = 0;
+
+            this.patternLower1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.patternLower2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.patternMiddle1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.patternMiddle2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.patternUpper1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.patternUpper2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+
+
+        }
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (this.patternLower1.Text.Length == 32)
+            {
+                this.patternLower1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower1.BackColor = Color.Red;
+            }
+            if (this.patternLower2.Text.Length == 32)
+            {
+                this.patternLower2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower2.BackColor = Color.Firebrick;
+            }
+            if (this.patternMiddle1.Text.Length == 32)
+            {
+                this.patternMiddle1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle1.BackColor = Color.Red;
+            }
+            if (this.patternMiddle2.Text.Length == 32)
+            {
+                this.patternMiddle2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle2.BackColor = Color.Red;
+            }
+            if (this.patternUpper1.Text.Length == 32)
+            {
+                this.patternUpper1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper1.BackColor = Color.Red;
+            }
+            if (this.patternUpper2.Text.Length == 32)
+            {
+                this.patternUpper2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper2.BackColor = Color.Red;
+            }
         }
 
         private void btnFlash_Click(object sender, EventArgs e)
@@ -133,59 +193,6 @@ namespace _FirstWindowsFormsApplication
         {
             // Allow backspace, 0 and 1
             e.Handled = !("01".Contains(e.KeyChar) || e.KeyChar == 8);
-            CheckBackgroundColor();
-        }
-
-        private void CheckBackgroundColor()
-        {
-            if (this.patternLower1.Text.Length == 32)
-            {
-                this.patternLower1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternLower1.BackColor = Color.Red;
-            }
-            if (this.patternLower2.Text.Length == 32)
-            {
-                this.patternLower2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternLower2.BackColor = Color.Firebrick;
-            }
-            if (this.patternMiddle1.Text.Length == 32)
-            {
-                this.patternMiddle1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternMiddle1.BackColor = Color.Red;
-            }
-            if (this.patternMiddle2.Text.Length == 32)
-            {
-                this.patternMiddle2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternMiddle2.BackColor = Color.Red;
-            }
-            if (this.patternUpper1.Text.Length == 32)
-            {
-                this.patternUpper1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternUpper1.BackColor = Color.Red;
-            }
-            if (this.patternUpper2.Text.Length == 32)
-            {
-                this.patternUpper2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternUpper2.BackColor = Color.Red;
-            }
         }
 
         private void Output1Mode_SelectedIndexChanged(object sender, EventArgs e)
@@ -280,7 +287,6 @@ namespace _FirstWindowsFormsApplication
                 this.patternUpper2.Text = "00000000000000001111111111111111";
                 this.patternUpper2.Enabled = false;
             }
-            CheckBackgroundColor();
         }
 
         private void resetOutput2()
@@ -300,7 +306,6 @@ namespace _FirstWindowsFormsApplication
             "On/Flashing/Off",
             "Brightness/PWM"});
             Output2Mode.SelectedIndex = 0;
-            CheckBackgroundColor();
         }
 
         private void Output1LowerThreshold_ValueChanged(object sender, EventArgs e)
