@@ -61,6 +61,7 @@ namespace _FirstWindowsFormsApplication
             this.Output2LowerThreshold = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.flashTool = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Output1LowerThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Output1UpperThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Output2UpperThreshold)).BeginInit();
@@ -196,7 +197,6 @@ namespace _FirstWindowsFormsApplication
             // 
             // btnFlash
             // 
-            this.btnFlash.Enabled = false;
             this.btnFlash.Location = new System.Drawing.Point(216, 407);
             this.btnFlash.Name = "btnFlash";
             this.btnFlash.Size = new System.Drawing.Size(75, 21);
@@ -379,11 +379,24 @@ namespace _FirstWindowsFormsApplication
             this.label12.TabIndex = 44;
             this.label12.Text = "Lower Threshold (%)";
             // 
+            // flashTool
+            // 
+            this.flashTool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.flashTool.FormattingEnabled = true;
+            this.flashTool.Items.AddRange(new object[] {
+            "Turnigy USB Linker",
+            "Arduino USB Linker"});
+            this.flashTool.Location = new System.Drawing.Point(79, 407);
+            this.flashTool.Name = "flashTool";
+            this.flashTool.Size = new System.Drawing.Size(131, 21);
+            this.flashTool.TabIndex = 54;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(538, 476);
+            this.Controls.Add(this.flashTool);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -458,6 +471,7 @@ namespace _FirstWindowsFormsApplication
         private System.Windows.Forms.NumericUpDown Output2LowerThreshold;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox flashTool;
     }
 }
 

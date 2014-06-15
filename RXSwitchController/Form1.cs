@@ -24,6 +24,10 @@ namespace _FirstWindowsFormsApplication
             Output2Selection.SelectedIndex = 0;
             Output1Mode.SelectedIndex = 0;
             Output2Mode.SelectedIndex = 0;
+            flashTool.SelectedIndex = 0;
+
+            btnFlash.Enabled = false;
+
             patternLower1.BackColor = Color.Red;
             patternLower2.BackColor = Color.Red;
             patternMiddle1.BackColor = Color.Red;
@@ -42,59 +46,6 @@ namespace _FirstWindowsFormsApplication
             this.patternMiddle2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             this.patternUpper1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             this.patternUpper2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-
-
-        }
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-            if (this.patternLower1.Text.Length == 32)
-            {
-                this.patternLower1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternLower1.BackColor = Color.Red;
-            }
-            if (this.patternLower2.Text.Length == 32)
-            {
-                this.patternLower2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternLower2.BackColor = Color.Firebrick;
-            }
-            if (this.patternMiddle1.Text.Length == 32)
-            {
-                this.patternMiddle1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternMiddle1.BackColor = Color.Red;
-            }
-            if (this.patternMiddle2.Text.Length == 32)
-            {
-                this.patternMiddle2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternMiddle2.BackColor = Color.Red;
-            }
-            if (this.patternUpper1.Text.Length == 32)
-            {
-                this.patternUpper1.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternUpper1.BackColor = Color.Red;
-            }
-            if (this.patternUpper2.Text.Length == 32)
-            {
-                this.patternUpper2.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                this.patternUpper2.BackColor = Color.Red;
-            }
         }
 
         private void btnFlash_Click(object sender, EventArgs e)
@@ -109,6 +60,7 @@ namespace _FirstWindowsFormsApplication
             UInt32[] pattern_lower = { Convert.ToUInt32(this.patternLower1.Text, 2), Convert.ToUInt32(this.patternLower2.Text, 2) };
             UInt32[] pattern_middle = { Convert.ToUInt32(this.patternMiddle1.Text, 2), Convert.ToUInt32(this.patternMiddle2.Text, 2) };
             UInt32[] pattern_upper = { Convert.ToUInt32(this.patternUpper1.Text, 2), Convert.ToUInt32(this.patternUpper2.Text, 2) };
+            string flashtool = "";
 
 
             if (File.Exists(eeprom_file))
@@ -132,11 +84,20 @@ namespace _FirstWindowsFormsApplication
             }
             sb.Clear();
 
+            if (flashTool.SelectedIndex == 0 )
+            {
+                flashtool = "tgyusblinker";
+            }
+            else if (flashTool.SelectedIndex == 1)
+            {
+                flashtool = "arduinousblinker";
+            }
+
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
             avrdude.StartInfo.ErrorDialog = true;
-            avrdude.StartInfo.Arguments = @"-p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file + @":i";
-            avrdude.StartInfo.FileName = @"C:\avrdude\avrdude.exe";
+            avrdude.StartInfo.Arguments = @"-p t85 -c " + flashtool + @" -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file + @":i";
+            avrdude.StartInfo.FileName = @"c:\avrdude\avrdude.exe";
             avrdude.Start();
 
             while (!avrdude.HasExited)
@@ -327,6 +288,59 @@ namespace _FirstWindowsFormsApplication
             else
             {
                 btnFlash.Enabled = false;
+            }
+        }
+
+        // Changes the colour of the pattern boxes to highlight incorrect number of bits entered
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (this.patternLower1.Text.Length == 32)
+            {
+                this.patternLower1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower1.BackColor = Color.Red;
+            }
+            if (this.patternLower2.Text.Length == 32)
+            {
+                this.patternLower2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternLower2.BackColor = Color.Firebrick;
+            }
+            if (this.patternMiddle1.Text.Length == 32)
+            {
+                this.patternMiddle1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle1.BackColor = Color.Red;
+            }
+            if (this.patternMiddle2.Text.Length == 32)
+            {
+                this.patternMiddle2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternMiddle2.BackColor = Color.Red;
+            }
+            if (this.patternUpper1.Text.Length == 32)
+            {
+                this.patternUpper1.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper1.BackColor = Color.Red;
+            }
+            if (this.patternUpper2.Text.Length == 32)
+            {
+                this.patternUpper2.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.patternUpper2.BackColor = Color.Red;
             }
         }
     }
