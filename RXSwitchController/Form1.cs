@@ -21,47 +21,6 @@ namespace _FirstWindowsFormsApplication
             InitializeComponent();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFD.ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox1 about = new AboutBox1();
-            about.ShowDialog();
-        }
-
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveAsFD.ShowDialog();
-        }
-
         private void btnFlash_Click(object sender, EventArgs e)
         {
             int i = 1;
@@ -84,7 +43,7 @@ namespace _FirstWindowsFormsApplication
 
             for (i = 0; i < 2; i++)
             {
-                line = @":20" + address.ToString("X4") + @"00" + channel[i].ToString("X2") + mode[i].ToString("X2") + threshold_lower[i].ToString("X4") + threshold_upper[i].ToString("X4") + pattern_lower[i].ToString("X4") + pattern_middle[i].ToString("X4") + pattern_upper[i].ToString("X4") + @"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+                line = @":20" + address.ToString("X4") + @"00" + channel[i].ToString("X2") + mode[i].ToString("X2") + InvertBytes(threshold_lower[i]) + InvertBytes(threshold_upper[i]) + InvertBytes(pattern_lower[i]) + InvertBytes(pattern_middle[i]) + InvertBytes(pattern_upper[i]) + @"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
                 line = add_checksum(line);
                 address += 0x80;
                 sb.AppendLine(line);
@@ -99,9 +58,9 @@ namespace _FirstWindowsFormsApplication
 
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
+            avrdude.StartInfo.ErrorDialog = true;
             avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
-            //avrdude.StartInfo.FileName = @"avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file;
-            avrdude.StartInfo.CreateNoWindow = true;
+            //avrdude.StartInfo.FileName = @".\avrdude\avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file;
             avrdude.Start();
 
             while (!avrdude.HasExited)
@@ -119,6 +78,15 @@ namespace _FirstWindowsFormsApplication
             avrdude.Dispose();
             //File.Delete(eeprom_file);
         }
+
+        // AVR needs EEPROM bytes inverted
+        private string InvertBytes(int hex)
+        {
+            string output;
+            output = hex.ToString("X4").Substring(2, 2) + hex.ToString("X4").Substring(0, 2);
+            return output;
+        }
+
         // Do calculation to add a checksum byte to the end of the variable passed in, remove first byte before calculating checksum
         private string add_checksum(string line)
         {
