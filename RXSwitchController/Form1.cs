@@ -15,7 +15,7 @@ namespace _FirstWindowsFormsApplication
 {
     public partial class Form1 : Form
     {
-        string eeprom_file = @"D:\eeprom_output.hex";
+        string eeprom_file = @"C:\temp\eeprom_output.hex";
         public Form1()
         {
             InitializeComponent();
@@ -28,11 +28,11 @@ namespace _FirstWindowsFormsApplication
             int address = 0;
             int[] channel = { this.Output1Selection.SelectedIndex + 1, this.Output2Selection.SelectedIndex + 1 };
             int[] mode = { Output1Mode.SelectedIndex == 1 ? 1 : 0, Output2Mode.SelectedIndex == 1 ? 1 : 0 };
-            int[] threshold_lower = { Convert.ToInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 13.64) + 342), Convert.ToInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 13.64) + 342) };
-            int[] threshold_upper = { Convert.ToInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 13.64) + 342), Convert.ToInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 13.64) + 342) };
-            int[] pattern_lower = { Convert.ToInt32(this.patternLower1.Text, 2), Convert.ToInt32(this.patternLower2.Text, 2) };
-            int[] pattern_middle = { Convert.ToInt32(this.patternMiddle1.Text, 2), Convert.ToInt32(this.patternMiddle2.Text, 2) };
-            int[] pattern_upper = { Convert.ToInt32(this.patternUpper1.Text, 2), Convert.ToInt32(this.patternUpper2.Text, 2) };
+            UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 13.64) + 342) };
+            UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 13.64) + 342) };
+            UInt32[] pattern_lower = { Convert.ToUInt32(this.patternLower1.Text, 2), Convert.ToUInt32(this.patternLower2.Text, 2) };
+            UInt32[] pattern_middle = { Convert.ToUInt32(this.patternMiddle1.Text, 2), Convert.ToUInt32(this.patternMiddle2.Text, 2) };
+            UInt32[] pattern_upper = { Convert.ToUInt32(this.patternUpper1.Text, 2), Convert.ToUInt32(this.patternUpper2.Text, 2) };
 
 
             if (File.Exists(eeprom_file))
@@ -43,7 +43,7 @@ namespace _FirstWindowsFormsApplication
 
             for (i = 0; i < 2; i++)
             {
-                line = @":20" + address.ToString("X4") + @"00" + channel[i].ToString("X2") + mode[i].ToString("X2") + InvertBytes(threshold_lower[i]) + InvertBytes(threshold_upper[i]) + InvertBytes(pattern_lower[i]) + InvertBytes(pattern_middle[i]) + InvertBytes(pattern_upper[i]) + @"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+                line = @":20" + address.ToString("X4") + @"00" + channel[i].ToString("X2") + mode[i].ToString("X2") + InvertBytes(threshold_lower[i], 4) + InvertBytes(threshold_upper[i], 4) + InvertBytes(pattern_lower[i], 8) + InvertBytes(pattern_middle[i], 8) + InvertBytes(pattern_upper[i], 8) + @"FFFFFFFFFFFFFFFFFFFFFFFFFFFF";
                 line = add_checksum(line);
                 address += 0x80;
                 sb.AppendLine(line);
@@ -59,9 +59,11 @@ namespace _FirstWindowsFormsApplication
             Process avrdude = new Process();
             avrdude.StartInfo.UseShellExecute = true;
             avrdude.StartInfo.ErrorDialog = true;
-            avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
-            //avrdude.StartInfo.FileName = @".\avrdude\avrdude.exe -p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file;
+            //avrdude.StartInfo.FileName = @"C:\Windows\Notepad.exe";
+            avrdude.StartInfo.Arguments = @"-p t85 -c tgyusblinker -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file + @":i";
+            avrdude.StartInfo.FileName = @"C:\avrdude\avrdude.exe";
             avrdude.Start();
+            
 
             while (!avrdude.HasExited)
                 System.Threading.Thread.Sleep(100);
@@ -80,10 +82,14 @@ namespace _FirstWindowsFormsApplication
         }
 
         // AVR needs EEPROM bytes inverted
-        private string InvertBytes(int hex)
+        private string InvertBytes(UInt32 hex, int len)
         {
-            string output;
-            output = hex.ToString("X4").Substring(2, 2) + hex.ToString("X4").Substring(0, 2);
+            string output = "";
+            int i;
+            for (i = len; i > 0; i = i - 2)
+            {
+                output = output + hex.ToString("X" + len).Substring(i - 2, 2);
+            }
             return output;
         }
 
@@ -133,11 +139,11 @@ namespace _FirstWindowsFormsApplication
                 this.Output1LowerThreshold.Enabled = false;
                 this.Output1UpperThreshold.Value = 60;
                 this.Output1UpperThreshold.Enabled = false;
-                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Text = "00000000000000000000000000000000";
                 this.patternLower1.Enabled = false;
-                this.patternMiddle1.Text = "0101010101010101";
+                this.patternMiddle1.Text = "01010101010101010101010101010101";
                 this.patternMiddle1.Enabled = false;
-                this.patternUpper1.Text = "1111111111111111";
+                this.patternUpper1.Text = "11111111111111111111111111111111";
                 this.patternUpper1.Enabled = false;
             }
             else if (Output1Mode.SelectedIndex == 2) // Brightness
@@ -155,11 +161,11 @@ namespace _FirstWindowsFormsApplication
                 this.Output1LowerThreshold.Enabled = false;
                 this.Output1UpperThreshold.Value = 50;
                 this.Output1UpperThreshold.Enabled = false;
-                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Text = "00000000000000000000000000000000";
                 this.patternLower1.Enabled = false;
-                this.patternMiddle1.Text = "0000000000000000";
+                this.patternMiddle1.Text = "00000000000000000000000000000000";
                 this.patternMiddle1.Enabled = false;
-                this.patternUpper1.Text = "0000111100000000";
+                this.patternUpper1.Text = "10000000000000000000000000000000";
                 this.patternUpper1.Enabled = false;
 
                 this.Output2Mode.SelectedIndex = this.Output1Mode.SelectedIndex;
@@ -170,11 +176,11 @@ namespace _FirstWindowsFormsApplication
                 this.Output2LowerThreshold.Enabled = false;
                 this.Output2UpperThreshold.Value = 50;
                 this.Output2UpperThreshold.Enabled = false;
-                this.patternLower2.Text = "0000000000000000";
+                this.patternLower2.Text = "00000000000000000000000000000000";
                 this.patternLower2.Enabled = false;
-                this.patternMiddle2.Text = "0000000000000000";
+                this.patternMiddle2.Text = "00000000000000000000000000000000";
                 this.patternMiddle2.Enabled = false;
-                this.patternUpper2.Text = "0000000011110000";
+                this.patternUpper2.Text = "0010000000000000000000000000000";
                 this.patternUpper2.Enabled = false;
             }
             else if (Output1Mode.SelectedIndex == 4) // Alternate flashing (Constant)
@@ -185,11 +191,11 @@ namespace _FirstWindowsFormsApplication
                 this.Output1LowerThreshold.Enabled = false;
                 this.Output1UpperThreshold.Value = 50;
                 this.Output1UpperThreshold.Enabled = false;
-                this.patternLower1.Text = "0000000000000000";
+                this.patternLower1.Text = "00000000000000000000000000000000";
                 this.patternLower1.Enabled = false;
-                this.patternMiddle1.Text = "0000000000000000";
+                this.patternMiddle1.Text = "00000000000000000000000000000000";
                 this.patternMiddle1.Enabled = false;
-                this.patternUpper1.Text = "1111111100000000";
+                this.patternUpper1.Text = "11111111111111110000000000000000";
                 this.patternUpper1.Enabled = false;
 
                 this.Output2Mode.SelectedIndex = this.Output1Mode.SelectedIndex;
@@ -200,11 +206,11 @@ namespace _FirstWindowsFormsApplication
                 this.Output2LowerThreshold.Enabled = false;
                 this.Output2UpperThreshold.Value = 50;
                 this.Output2UpperThreshold.Enabled = false;
-                this.patternLower2.Text = "0000000000000000";
+                this.patternLower2.Text = "00000000000000000000000000000000";
                 this.patternLower2.Enabled = false;
-                this.patternMiddle2.Text = "0000000000000000";
+                this.patternMiddle2.Text = "00000000000000000000000000000000";
                 this.patternMiddle2.Enabled = false;
-                this.patternUpper2.Text = "0000000011111111";
+                this.patternUpper2.Text = "00000000000000001111111111111111";
                 this.patternUpper2.Enabled = false;
             }
         }
