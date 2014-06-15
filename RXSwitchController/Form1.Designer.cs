@@ -39,8 +39,6 @@ namespace _FirstWindowsFormsApplication
             this.Output2Mode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.openFD = new System.Windows.Forms.OpenFileDialog();
-            this.saveAsFD = new System.Windows.Forms.SaveFileDialog();
             this.SerialPortComboBox = new System.Windows.Forms.ComboBox();
             this.btnFlash = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -68,7 +66,6 @@ namespace _FirstWindowsFormsApplication
             ((System.ComponentModel.ISupportInitialize)(this.Output2UpperThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Output2LowerThreshold)).BeginInit();
             this.SuspendLayout();
-
             // 
             // Output1Selection
             // 
@@ -194,6 +191,7 @@ namespace _FirstWindowsFormsApplication
             // SerialPortComboBox
             // 
             this.SerialPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            
             this.SerialPortComboBox.FormattingEnabled = true;
             string[] ports = SerialPort.GetPortNames();
             this.SerialPortComboBox.Items.Add("Select COM port...");
@@ -445,8 +443,6 @@ namespace _FirstWindowsFormsApplication
         private System.Windows.Forms.ComboBox Output2Mode;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.OpenFileDialog openFD;
-        private System.Windows.Forms.SaveFileDialog saveAsFD;
         private System.Windows.Forms.ComboBox SerialPortComboBox;
         private System.Windows.Forms.Button btnFlash;
         private System.Windows.Forms.Label label1;
