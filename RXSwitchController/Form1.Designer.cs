@@ -166,6 +166,7 @@ namespace _FirstWindowsFormsApplication
             this.Output2Mode.Name = "Output2Mode";
             this.Output2Mode.Size = new System.Drawing.Size(200, 21);
             this.Output2Mode.TabIndex = 12;
+            this.Output2Mode.SelectedIndexChanged += new System.EventHandler(this.Output2Mode_SelectedIndexChanged);
             // 
             // label6
             // 

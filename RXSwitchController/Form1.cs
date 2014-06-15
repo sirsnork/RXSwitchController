@@ -249,6 +249,36 @@ namespace _FirstWindowsFormsApplication
                 this.patternUpper2.Enabled = false;
             }
         }
+        private void Output2Mode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Output2Mode.SelectedIndex == 0) // Custom
+            {
+                this.patternLower2.Enabled = true;
+                this.patternMiddle2.Enabled = true;
+                this.patternUpper2.Enabled = true;
+                this.Output2LowerThreshold.Enabled = true;
+                this.Output2UpperThreshold.Enabled = true;
+            }
+            else if (Output2Mode.SelectedIndex == 1) // Off/Flashing/On
+            {
+                this.Output2LowerThreshold.Value = 40;
+                this.Output2LowerThreshold.Enabled = false;
+                this.Output2UpperThreshold.Value = 60;
+                this.Output2UpperThreshold.Enabled = false;
+                this.patternLower2.Text = "00000000000000000000000000000000";
+                this.patternLower2.Enabled = false;
+                this.patternMiddle2.Text = "01010101010101010101010101010101";
+                this.patternMiddle2.Enabled = false;
+                this.patternUpper2.Text = "11111111111111111111111111111111";
+                this.patternUpper2.Enabled = false;
+            }
+            else if (Output2Mode.SelectedIndex == 2) // Brightness
+            {
+                this.patternLower2.Enabled = false;
+                this.patternMiddle2.Enabled = false;
+                this.patternUpper2.Enabled = false;
+            }
+        }
 
         private void resetOutput2()
         {
@@ -308,7 +338,7 @@ namespace _FirstWindowsFormsApplication
             }
             else
             {
-                this.patternLower2.BackColor = Color.Firebrick;
+                this.patternLower2.BackColor = Color.Red;
             }
             if (this.patternMiddle1.Text.Length == 32)
             {
