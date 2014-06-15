@@ -126,7 +126,7 @@ namespace _FirstWindowsFormsApplication
                 this.Output1LowerThreshold.Enabled = true;
                 this.Output1UpperThreshold.Enabled = true;
             }
-            else if (Output1Mode.SelectedIndex == 1) //Off/Flashing/On
+            else if (Output1Mode.SelectedIndex == 1) // Off/Flashing/On
             {
                 resetOutput2();
                 this.Output1LowerThreshold.Value = 40;
@@ -140,14 +140,14 @@ namespace _FirstWindowsFormsApplication
                 this.patternUpper1.Text = "1111111111111111";
                 this.patternUpper1.Enabled = false;
             }
-            else if (Output1Mode.SelectedIndex == 2) //Brightness
+            else if (Output1Mode.SelectedIndex == 2) // Brightness
             {
                 resetOutput2();
                 this.patternLower1.Enabled = false;
                 this.patternMiddle1.Enabled = false;
                 this.patternUpper1.Enabled = false;
             }
-            else if (Output1Mode.SelectedIndex == 3) //Alternate flashing (Wingtip)
+            else if (Output1Mode.SelectedIndex == 3) // Alternate flashing (Wingtip)
             {
                 this.Output2Mode.Items.AddRange(new string[] {"Alternating Flashing (Wingtip Lights)", "Alternating Flashing (Constant)"});
 
@@ -177,7 +177,7 @@ namespace _FirstWindowsFormsApplication
                 this.patternUpper2.Text = "0000000011110000";
                 this.patternUpper2.Enabled = false;
             }
-            else if (Output1Mode.SelectedIndex == 4) //Alternate flashing (Constant)
+            else if (Output1Mode.SelectedIndex == 4) // Alternate flashing (Constant)
             {
                 this.Output2Mode.Items.AddRange(new string[] { "Alternating Flashing (Wingtip Lights)", "Alternating Flashing (Constant)" });
 
