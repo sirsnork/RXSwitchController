@@ -19,6 +19,16 @@ namespace _FirstWindowsFormsApplication
         public Form1()
         {
             InitializeComponent();
+
+            Output1Selection.SelectedIndex = 0;
+            Output2Selection.SelectedIndex = 0;
+            Output1Mode.SelectedIndex = 0;
+            Output2Mode.SelectedIndex = 0;
+            
+            string[] ports = SerialPort.GetPortNames();
+            SerialPortComboBox.Items.Add("Select COM port...");
+            SerialPortComboBox.Items.AddRange(ports);
+            SerialPortComboBox.SelectedIndex = 0;
         }
 
         private void btnFlash_Click(object sender, EventArgs e)

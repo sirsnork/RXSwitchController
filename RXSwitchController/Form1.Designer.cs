@@ -91,7 +91,6 @@ namespace _FirstWindowsFormsApplication
             this.Output1Selection.Location = new System.Drawing.Point(102, 45);
             this.Output1Selection.Name = "Output1Selection";
             this.Output1Selection.Size = new System.Drawing.Size(121, 21);
-            this.Output1Selection.SelectedIndex = 0;
             this.Output1Selection.TabIndex = 7;
             // 
             // Output2Selection
@@ -118,7 +117,6 @@ namespace _FirstWindowsFormsApplication
             this.Output2Selection.Location = new System.Drawing.Point(102, 219);
             this.Output2Selection.Name = "Output2Selection";
             this.Output2Selection.Size = new System.Drawing.Size(121, 21);
-            this.Output2Selection.SelectedIndex = 0;
             this.Output2Selection.TabIndex = 8;
             // 
             // label4
@@ -153,7 +151,6 @@ namespace _FirstWindowsFormsApplication
             this.Output1Mode.Name = "Output1Mode";
             this.Output1Mode.Size = new System.Drawing.Size(200, 21);
             this.Output1Mode.TabIndex = 11;
-            this.Output1Mode.SelectedIndex = 0;
             this.Output1Mode.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // Output2Mode
@@ -167,7 +164,6 @@ namespace _FirstWindowsFormsApplication
             this.Output2Mode.Location = new System.Drawing.Point(302, 219);
             this.Output2Mode.Name = "Output2Mode";
             this.Output2Mode.Size = new System.Drawing.Size(200, 21);
-            this.Output2Mode.SelectedIndex = 0;
             this.Output2Mode.TabIndex = 12;
             // 
             // label6
@@ -193,14 +189,10 @@ namespace _FirstWindowsFormsApplication
             this.SerialPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             
             this.SerialPortComboBox.FormattingEnabled = true;
-            string[] ports = SerialPort.GetPortNames();
-            this.SerialPortComboBox.Items.Add("Select COM port...");
-            this.SerialPortComboBox.Items.AddRange(ports);
             this.SerialPortComboBox.Location = new System.Drawing.Point(297, 407);
             this.SerialPortComboBox.Name = "SerialPortComboBox";
             this.SerialPortComboBox.Size = new System.Drawing.Size(131, 21);
             this.SerialPortComboBox.TabIndex = 25;
-            this.SerialPortComboBox.SelectedIndex = 0;
             this.SerialPortComboBox.SelectedIndexChanged += new System.EventHandler(this.SerialPortComboBox_SelectedIndexChanged);
             // 
             // btnFlash
