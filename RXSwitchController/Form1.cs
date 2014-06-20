@@ -57,7 +57,7 @@ namespace _FirstWindowsFormsApplication
             string line;
             int address = 0;
             int[] channel = { this.Output1Selection.SelectedIndex + 1, this.Output2Selection.SelectedIndex + 1 };
-            int[] mode = { Output1Mode.SelectedIndex == 1 ? 1 : 0, Output2Mode.SelectedIndex == 1 ? 1 : 0 };
+            int[] mode = { Output1Mode.SelectedIndex == 2 ? 1 : 0, Output2Mode.SelectedIndex == 2 ? 1 : 0 };
             UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 13.64) + 342) };
             UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 13.64) + 342) };
             UInt32[] pattern_lower = { Convert.ToUInt32(this.patternLower1.Text, 2), Convert.ToUInt32(this.patternLower2.Text, 2) };
@@ -166,7 +166,7 @@ namespace _FirstWindowsFormsApplication
 
         private void Output1Mode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Output1Mode.SelectedIndex == 0) // Custom
+            if (Output1Mode.SelectedIndex == 0) // Custom pattern
             {
                 resetOutput2();
                 this.patternLower1.Enabled = true;
@@ -184,7 +184,7 @@ namespace _FirstWindowsFormsApplication
                 this.Output1UpperThreshold.Enabled = false;
                 this.patternLower1.Text = "00000000000000000000000000000000";
                 this.patternLower1.Enabled = false;
-                this.patternMiddle1.Text = "01010101010101010101010101010101";
+                this.patternMiddle1.Text = "00110011001100110011001100110011";
                 this.patternMiddle1.Enabled = false;
                 this.patternUpper1.Text = "11111111111111111111111111111111";
                 this.patternUpper1.Enabled = false;
@@ -195,6 +195,14 @@ namespace _FirstWindowsFormsApplication
                 this.patternLower1.Enabled = false;
                 this.patternMiddle1.Enabled = false;
                 this.patternUpper1.Enabled = false;
+                this.Output1LowerThreshold.Enabled = false;
+                this.Output1UpperThreshold.Enabled = false;
+                if (patternLower1.Text == "")
+                    patternLower1.Text = "00000000000000000000000000000000";
+                if (patternMiddle1.Text == "")
+                    patternMiddle1.Text = "00000000000000000000000000000000";
+                if (patternUpper1.Text == "")
+                    patternUpper1.Text = "00000000000000000000000000000000";
             }
             else if (Output1Mode.SelectedIndex == 3) // Alternate flashing (Wingtip)
             {
@@ -259,7 +267,7 @@ namespace _FirstWindowsFormsApplication
         }
         private void Output2Mode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Output2Mode.SelectedIndex == 0) // Custom
+            if (Output2Mode.SelectedIndex == 0) // Custom pattern
             {
                 this.patternLower2.Enabled = true;
                 this.patternMiddle2.Enabled = true;
@@ -275,7 +283,7 @@ namespace _FirstWindowsFormsApplication
                 this.Output2UpperThreshold.Enabled = false;
                 this.patternLower2.Text = "00000000000000000000000000000000";
                 this.patternLower2.Enabled = false;
-                this.patternMiddle2.Text = "01010101010101010101010101010101";
+                this.patternMiddle2.Text = "00110011001100110011001100110011";
                 this.patternMiddle2.Enabled = false;
                 this.patternUpper2.Text = "11111111111111111111111111111111";
                 this.patternUpper2.Enabled = false;
@@ -285,6 +293,14 @@ namespace _FirstWindowsFormsApplication
                 this.patternLower2.Enabled = false;
                 this.patternMiddle2.Enabled = false;
                 this.patternUpper2.Enabled = false;
+                this.Output2LowerThreshold.Enabled = false;
+                this.Output2UpperThreshold.Enabled = false;
+                if (patternLower2.Text == "")
+                    patternLower2.Text = "00000000000000000000000000000000";
+                if (patternMiddle2.Text == "")
+                    patternMiddle2.Text = "00000000000000000000000000000000";
+                if (patternUpper2.Text == "")
+                    patternUpper2.Text = "00000000000000000000000000000000";
             }
         }
 

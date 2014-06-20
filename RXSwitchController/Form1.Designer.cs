@@ -199,11 +199,11 @@ namespace _FirstWindowsFormsApplication
             // 
             // btnFlash
             // 
-            this.btnFlash.Location = new System.Drawing.Point(216, 407);
+            this.btnFlash.Location = new System.Drawing.Point(216, 397);
             this.btnFlash.Name = "btnFlash";
-            this.btnFlash.Size = new System.Drawing.Size(75, 21);
+            this.btnFlash.Size = new System.Drawing.Size(75, 42);
             this.btnFlash.TabIndex = 26;
-            this.btnFlash.Text = "Flash";
+            this.btnFlash.Text = "Update!";
             this.btnFlash.UseVisualStyleBackColor = true;
             this.btnFlash.Click += new System.EventHandler(this.btnFlash_Click);
             // 
