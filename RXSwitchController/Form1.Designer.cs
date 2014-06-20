@@ -62,6 +62,7 @@ namespace _FirstWindowsFormsApplication
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.flashTool = new System.Windows.Forms.ComboBox();
+            this.FlashOutputTB = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Output1LowerThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Output1UpperThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Output2UpperThreshold)).BeginInit();
@@ -392,11 +393,21 @@ namespace _FirstWindowsFormsApplication
             this.flashTool.Size = new System.Drawing.Size(131, 21);
             this.flashTool.TabIndex = 54;
             // 
+            // FlashOutputTB
+            // 
+            this.FlashOutputTB.Location = new System.Drawing.Point(49, 464);
+            this.FlashOutputTB.Multiline = true;
+            this.FlashOutputTB.Name = "FlashOutputTB";
+            this.FlashOutputTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.FlashOutputTB.Size = new System.Drawing.Size(453, 181);
+            this.FlashOutputTB.TabIndex = 55;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 476);
+            this.ClientSize = new System.Drawing.Size(538, 670);
+            this.Controls.Add(this.FlashOutputTB);
             this.Controls.Add(this.flashTool);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label9);
@@ -473,6 +484,7 @@ namespace _FirstWindowsFormsApplication
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox flashTool;
+        private System.Windows.Forms.TextBox FlashOutputTB;
     }
 }
 

@@ -10,15 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading;
 
 namespace _FirstWindowsFormsApplication
 {
     public partial class Form1 : Form
     {
-        string eeprom_file = @"C:\temp\eeprom_output.hex";
+        SynchronizationContext _syncContext;
+        string eeprom_file = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".hex";
         public Form1()
         {
             InitializeComponent();
+            _syncContext = SynchronizationContext.Current;
 
             Output1Selection.SelectedIndex = 0;
             Output2Selection.SelectedIndex = 0;
@@ -94,26 +97,31 @@ namespace _FirstWindowsFormsApplication
             }
 
             Process avrdude = new Process();
-            avrdude.StartInfo.UseShellExecute = true;
+            avrdude.StartInfo.UseShellExecute = false;
             avrdude.StartInfo.ErrorDialog = true;
+            avrdude.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory();
             avrdude.StartInfo.Arguments = @"-p t85 -c " + flashtool + @" -P " + SerialPortComboBox.SelectedItem.ToString().ToLower() + @" -U eeprom:w:" + eeprom_file + @":i";
-            avrdude.StartInfo.FileName = @"c:\avrdude\avrdude.exe";
+            avrdude.StartInfo.FileName = avrdude.StartInfo.WorkingDirectory + @"\avrdude\avrdude.exe";
+            avrdude.StartInfo.RedirectStandardOutput = true;
+            avrdude.StartInfo.RedirectStandardError = true;
+            avrdude.StartInfo.CreateNoWindow = true;
+
+            avrdude.OutputDataReceived += (avrsender, args) => avrdude_Display(args.Data);
+            avrdude.ErrorDataReceived += (avrsender, args) => avrdude_Display(args.Data);
+
             avrdude.Start();
 
-            while (!avrdude.HasExited)
-                System.Threading.Thread.Sleep(100);
-            if (avrdude.ExitCode != 0)
-            {
-                MessageBox.Show("Updating EEPROM Failed");
-                SerialPortComboBox.Focus();
-            }
-            else 
-            {
-                MessageBox.Show("Success Updating EEPROM");
-                SerialPortComboBox.Focus();
-            }
+            avrdude.BeginOutputReadLine();
+            avrdude.BeginErrorReadLine();
+
+            avrdude.WaitForExit();
             avrdude.Dispose();
-            //File.Delete(eeprom_file);
+            File.Delete(eeprom_file);
+        }
+
+        private void avrdude_Display(string avrdude_output)
+        {
+            _syncContext.Post(_ => FlashOutputTB.AppendText(avrdude_output + Environment.NewLine), null);
         }
 
         // AVR needs EEPROM bytes inverted
