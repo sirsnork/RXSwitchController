@@ -58,10 +58,12 @@ namespace _FirstWindowsFormsApplication
             int address = 0;
             int[] channel = { this.Output1Selection.SelectedIndex + 1, this.Output2Selection.SelectedIndex + 1 };
             int[] mode = { Output1Mode.SelectedIndex == 2 ? 1 : 0, Output2Mode.SelectedIndex == 2 ? 1 : 0 };
+            UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 16.032) + 186), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 16.032) + 186) };
+            UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 16.032) + 186), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 16.032) + 186) };
             //UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 13.64) + 342) };
             //UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 13.64) + 342), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 13.64) + 342) };
-            UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 15.36) + 256), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 15.36) + 256) };
-            UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 15.36) + 256), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 15.36) + 256) };
+            //UInt32[] threshold_lower = { Convert.ToUInt32((Convert.ToInt32(this.Output1LowerThreshold.Value) * 15.36) + 256), Convert.ToUInt32((Convert.ToInt32(this.Output2LowerThreshold.Value) * 15.36) + 256) };
+            //UInt32[] threshold_upper = { Convert.ToUInt32((Convert.ToInt32(this.Output1UpperThreshold.Value) * 15.36) + 256), Convert.ToUInt32((Convert.ToInt32(this.Output2UpperThreshold.Value) * 15.36) + 256) };
             UInt32[] pattern_lower = { Convert.ToUInt32(this.patternLower1.Text, 2), Convert.ToUInt32(this.patternLower2.Text, 2) };
             UInt32[] pattern_middle = { Convert.ToUInt32(this.patternMiddle1.Text, 2), Convert.ToUInt32(this.patternMiddle2.Text, 2) };
             UInt32[] pattern_upper = { Convert.ToUInt32(this.patternUpper1.Text, 2), Convert.ToUInt32(this.patternUpper2.Text, 2) };
