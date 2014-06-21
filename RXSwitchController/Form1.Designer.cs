@@ -242,35 +242,35 @@ namespace _FirstWindowsFormsApplication
             // 
             // patternLower1
             // 
-            this.patternLower1.Location = new System.Drawing.Point(81, 150);
+            this.patternLower1.Location = new System.Drawing.Point(210, 118);
             this.patternLower1.MaxLength = 32;
             this.patternLower1.Name = "patternLower1";
-            this.patternLower1.Size = new System.Drawing.Size(100, 20);
+            this.patternLower1.Size = new System.Drawing.Size(218, 20);
             this.patternLower1.TabIndex = 38;
             this.patternLower1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternMiddle1
             // 
-            this.patternMiddle1.Location = new System.Drawing.Point(210, 150);
+            this.patternMiddle1.Location = new System.Drawing.Point(210, 147);
             this.patternMiddle1.MaxLength = 32;
             this.patternMiddle1.Name = "patternMiddle1";
-            this.patternMiddle1.Size = new System.Drawing.Size(100, 20);
+            this.patternMiddle1.Size = new System.Drawing.Size(218, 20);
             this.patternMiddle1.TabIndex = 39;
             this.patternMiddle1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternUpper1
             // 
-            this.patternUpper1.Location = new System.Drawing.Point(343, 150);
+            this.patternUpper1.Location = new System.Drawing.Point(210, 177);
             this.patternUpper1.MaxLength = 32;
             this.patternUpper1.Name = "patternUpper1";
-            this.patternUpper1.Size = new System.Drawing.Size(100, 20);
+            this.patternUpper1.Size = new System.Drawing.Size(218, 20);
             this.patternUpper1.TabIndex = 40;
             this.patternUpper1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternLower1_label
             // 
             this.patternLower1_label.AutoSize = true;
-            this.patternLower1_label.Location = new System.Drawing.Point(93, 134);
+            this.patternLower1_label.Location = new System.Drawing.Point(125, 121);
             this.patternLower1_label.Name = "patternLower1_label";
             this.patternLower1_label.Size = new System.Drawing.Size(73, 13);
             this.patternLower1_label.TabIndex = 41;
@@ -279,7 +279,7 @@ namespace _FirstWindowsFormsApplication
             // patternMiddle_label
             // 
             this.patternMiddle_label.AutoSize = true;
-            this.patternMiddle_label.Location = new System.Drawing.Point(221, 134);
+            this.patternMiddle_label.Location = new System.Drawing.Point(125, 150);
             this.patternMiddle_label.Name = "patternMiddle_label";
             this.patternMiddle_label.Size = new System.Drawing.Size(75, 13);
             this.patternMiddle_label.TabIndex = 42;
@@ -288,7 +288,7 @@ namespace _FirstWindowsFormsApplication
             // patternUpper_label
             // 
             this.patternUpper_label.AutoSize = true;
-            this.patternUpper_label.Location = new System.Drawing.Point(355, 134);
+            this.patternUpper_label.Location = new System.Drawing.Point(127, 180);
             this.patternUpper_label.Name = "patternUpper_label";
             this.patternUpper_label.Size = new System.Drawing.Size(73, 13);
             this.patternUpper_label.TabIndex = 43;
@@ -297,7 +297,7 @@ namespace _FirstWindowsFormsApplication
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(355, 312);
+            this.label2.Location = new System.Drawing.Point(125, 362);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 53;
@@ -306,7 +306,7 @@ namespace _FirstWindowsFormsApplication
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(221, 312);
+            this.label9.Location = new System.Drawing.Point(125, 328);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 13);
             this.label9.TabIndex = 52;
@@ -315,7 +315,7 @@ namespace _FirstWindowsFormsApplication
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(93, 312);
+            this.label10.Location = new System.Drawing.Point(125, 300);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(73, 13);
             this.label10.TabIndex = 51;
@@ -323,28 +323,28 @@ namespace _FirstWindowsFormsApplication
             // 
             // patternUpper2
             // 
-            this.patternUpper2.Location = new System.Drawing.Point(343, 328);
+            this.patternUpper2.Location = new System.Drawing.Point(217, 359);
             this.patternUpper2.MaxLength = 32;
             this.patternUpper2.Name = "patternUpper2";
-            this.patternUpper2.Size = new System.Drawing.Size(100, 20);
+            this.patternUpper2.Size = new System.Drawing.Size(210, 20);
             this.patternUpper2.TabIndex = 50;
             this.patternUpper2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternMiddle2
             // 
-            this.patternMiddle2.Location = new System.Drawing.Point(210, 328);
+            this.patternMiddle2.Location = new System.Drawing.Point(217, 328);
             this.patternMiddle2.MaxLength = 32;
             this.patternMiddle2.Name = "patternMiddle2";
-            this.patternMiddle2.Size = new System.Drawing.Size(100, 20);
+            this.patternMiddle2.Size = new System.Drawing.Size(210, 20);
             this.patternMiddle2.TabIndex = 49;
             this.patternMiddle2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
             // patternLower2
             // 
-            this.patternLower2.Location = new System.Drawing.Point(81, 328);
+            this.patternLower2.Location = new System.Drawing.Point(217, 297);
             this.patternLower2.MaxLength = 32;
             this.patternLower2.Name = "patternLower2";
-            this.patternLower2.Size = new System.Drawing.Size(100, 20);
+            this.patternLower2.Size = new System.Drawing.Size(210, 20);
             this.patternLower2.TabIndex = 48;
             this.patternLower2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBinary_KeyPress);
             // 
